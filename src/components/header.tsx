@@ -1,9 +1,14 @@
+'use client'
+
 import Link from 'next/link'
 import navigation, { buttons } from '@/data/nav-links'
 import logo from '@/assets/logo.png'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 const Header = () => {
+  const pathname = usePathname()
+  console.log(pathname)
   return (
     <header className='w-full flex justify-between items-center'>
       <Link
@@ -18,10 +23,16 @@ const Header = () => {
             <Link
               href={link.path}
               key={idx}
-              className='transition-all duration-300 relative ease-linear group hover:text-main_green font-medium pb-2'
+              className={`transition-all duration-300 relative ease-linear group hover:text-main_green font-medium pb-2 ${
+                pathname === link.path && 'text-main_green'
+              }`}
             >
               {link.name}
-              <div className='absolute w-[85%] h-[2px] rounded bg-main_green group-hover:opacity-90 opacity-0 transition-all duration-500 ease-out left-[50%] translate-x-[-50%]' />
+              <div
+                className={`absolute w-[85%] h-[2px] rounded bg-main_green group-hover:opacity-90 opacity-0 transition-all duration-500 ease-out left-[50%] translate-x-[-50%] ${
+                  pathname === link.path && 'opacity-90'
+                }`}
+              />
             </Link>
           ))}
         </nav>
@@ -33,7 +44,7 @@ const Header = () => {
               className={`${
                 button.name.toLowerCase() === 'sign up'
                   ? 'text-main_green font-medium cursor-pointer'
-                  : 'px-6 py-1.5 rounded-lg bg-main_green font-medium text-white cursor-pointer drop-shadow-xl hover:drop-shadow-sm transition-all duration-300'
+                  : 'px-9 py-1.5 rounded-lg bg-main_green font-medium text-white cursor-pointer drop-shadow-xl hover:drop-shadow-md transition-all duration-300 active:drop-shadow-none'
               }`}
             >
               {button.name}
