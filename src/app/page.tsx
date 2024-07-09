@@ -1,5 +1,11 @@
+import TopSection from '@/components/top_section'
+
 const Home = () => {
-  return <div>homepage</div>
+  return (
+    <>
+      <TopSection />
+    </>
+  )
 }
 
 export default Home
