@@ -1,5 +1,8 @@
 import { IoPlay } from 'react-icons/io5'
 import Link from 'next/link'
+import Image from 'next/image'
+import doctor from '@/assets/doctor.png'
+import doctor_bg from '@/assets/doctor-bg.png'
 
 const TopSection = () => {
   return (
@@ -17,7 +20,7 @@ const TopSection = () => {
             medical professionals, cutting-edge technology, and compassionate
             approach make us a leader in the healthcare industry
           </p>
-          <div className='flex items-center gap-5'>
+          <div className='flex items-center gap-8'>
             <button className='text-white bg-main_green px-8 py-1.5 rounded hover:bg-main_green/80 transition-all duration-300 ease-linear'>
               Appointments
             </button>
@@ -34,7 +37,26 @@ const TopSection = () => {
           </div>
         </div>
       </div>
-      <div></div>
+      <div className='relative'>
+        <Image
+          src={doctor_bg}
+          priority
+          className='w-[250px] md:w-[300px] 2xl:-mt-16 lg:w-[350px] xl:w-[420px] 2xl:w-[470px]'
+          alt=''
+        />
+        <Image
+          src={doctor}
+          className='absolute top-0 2xl:-top-16 w-[223px] md:w-[268px] right-5 lg:w-[314px] xl:w-[378px] 2xl:w-[425px]'
+          alt=''
+          priority
+        />
+        <div className='flex bg-white rounded-xl items-center drop-shadow-sm w-fit px-3 py-2 gap-2 font-medium text-sm max-lg:text-[13px] absolute -right-6 top-14'>
+          <span className='text-main_green text-lg max-lg:text-[15px]'>
+            24/7
+          </span>
+          Services
+        </div>
+      </div>
     </section>
   )
 }
