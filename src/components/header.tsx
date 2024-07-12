@@ -5,10 +5,11 @@ import navigation, { buttons } from '@/data/nav-links'
 import logo from '@/assets/logo.png'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { useAuth, UserButton } from '@clerk/nextjs'
 
 const Header = () => {
   const pathname = usePathname()
-  console.log(pathname)
+  const { sessionId } = useAuth()
   return (
     <header className='w-full flex justify-between items-center'>
       <Link
@@ -36,21 +37,25 @@ const Header = () => {
             </Link>
           ))}
         </nav>
-        <div className='flex items-center gap-5'>
-          {buttons.map((button, idx: number) => (
-            <Link
-              href={button.path}
-              key={idx}
-              className={`${
-                button.name.toLowerCase() === 'sign up'
-                  ? 'text-main_green font-medium cursor-pointer'
-                  : 'px-9 py-1.5 rounded-lg bg-main_green font-medium text-white cursor-pointer drop-shadow-xl hover:drop-shadow-md transition-all duration-300 active:drop-shadow-none'
-              }`}
-            >
-              {button.name}
-            </Link>
-          ))}
-        </div>
+        {!sessionId ? (
+          <div className='flex items-center gap-5'>
+            {buttons.map((button, idx: number) => (
+              <Link
+                href={button.path}
+                key={idx}
+                className={`${
+                  button.name.toLowerCase() === 'sign up'
+                    ? 'text-main_green font-medium cursor-pointer'
+                    : 'px-9 py-1.5 rounded-lg bg-main_green font-medium text-white cursor-pointer drop-shadow-xl hover:drop-shadow-md transition-all duration-300 active:drop-shadow-none'
+                }`}
+              >
+                {button.name}
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <UserButton />
+        )}
       </div>
     </header>
   )

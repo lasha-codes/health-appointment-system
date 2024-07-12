@@ -12,7 +12,7 @@ const navigation: navLinks[] = [
 ]
 
 export const buttons: navLinks[] = [
-  { name: 'Sign Up', path: '/sign-up' },
+  { name: 'Sign Up', path: '/register' },
   { name: 'Log In', path: '/login' },
 ]
 

@@ -40,7 +40,7 @@ const FindDoctorSection = () => {
           }`}
         >
           <div
-            className={`h-full w-[16px] rounded-full transition-all duration-300 ease-in-out cursor-pointer ${
+            className={`h-full w-[16px] rounded-full transition-all duration-500 ease-out cursor-pointer ${
               available ? 'bg-main_green translate-x-[22px]' : 'bg-red-500/70'
             }`}
           />
