@@ -62,3 +62,7 @@ const Header = () => {
 }
 
 export default Header
+
+console.log(
+  'honestly cant code rn but i would like too im sending job applications'
+)
