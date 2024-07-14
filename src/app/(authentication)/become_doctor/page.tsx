@@ -10,9 +10,9 @@ const BecomeDoctorPage = () => {
         <p className='text-[15px] max-w-[500px] text-gray-500'>
           Hello dear user, if u are trying to become doctor at Healthcare
           company, we would first like you to fill out the form below this,
-          after that we will receive you'r information hiring manager will
-          decide u will either be acepted or not, if something goes wrong we can
-          always contact you via you'r email, or phone number.
+          after that we will receive your information hiring manager will decide
+          u will either be acepted or not, if something goes wrong we can always
+          contact you via your email, or phone number.
         </p>
       </div>
       <DoctorForm />
