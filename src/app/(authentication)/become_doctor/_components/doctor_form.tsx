@@ -8,9 +8,35 @@ const DoctorForm = () => {
   const [phoneValue, setPhoneValue] = useState<string>('+995')
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [doctorImage, setDoctorImage] = useState<string>('')
+  const [imageLoading, setImageLoading] = useState<boolean>(false)
 
-  const uploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e)
+  const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0]
+    const base64: any = await convertBase64(file)
+    if (base64) {
+      setDoctorImage(base64)
+    }
+  }
+
+  const convertBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader()
+      fileReader.readAsDataURL(file)
+
+      fileReader.onloadstart = () => {
+        setImageLoading(true)
+      }
+
+      fileReader.onload = () => {
+        resolve(fileReader.result)
+        setImageLoading(false)
+      }
+
+      fileReader.onerror = (error) => {
+        reject(error)
+      }
+    })
   }
 
   return (
