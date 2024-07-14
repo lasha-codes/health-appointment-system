@@ -54,7 +54,15 @@ const Header = () => {
             ))}
           </div>
         ) : (
-          <UserButton />
+          <div className='flex items-center gap-5'>
+            <Link
+              href='/become_doctor'
+              className='font-medium text-main_green hover:underline'
+            >
+              How to become doctor?
+            </Link>
+            <UserButton />
+          </div>
         )}
       </div>
     </header>
@@ -62,7 +70,3 @@ const Header = () => {
 }
 
 export default Header
-
-console.log(
-  'honestly cant code rn but i would like too im sending job applications'
-)
