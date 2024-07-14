@@ -3,6 +3,9 @@
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { useState } from 'react'
+import { IoImagesOutline } from 'react-icons/io5'
+import default_avatar from '@/assets/default-avatar.svg'
+import Image from 'next/image'
 
 const DoctorForm = () => {
   const [phoneValue, setPhoneValue] = useState<string>('+995')
@@ -14,6 +17,7 @@ const DoctorForm = () => {
   const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0]
     const base64: any = await convertBase64(file)
+    setImageLoading(false)
     if (base64) {
       setDoctorImage(base64)
     }
@@ -30,7 +34,6 @@ const DoctorForm = () => {
 
       fileReader.onload = () => {
         resolve(fileReader.result)
-        setImageLoading(false)
       }
 
       fileReader.onerror = (error) => {
@@ -81,8 +84,34 @@ const DoctorForm = () => {
           defaultCountry='GE'
         />
       </div>
-      <div>
-        <input type='file' onChange={uploadFile} />
+      <div className='flex flex-col items-start gap-2 mt-5'>
+        <div className='w-[400px] h-[300px] rounded-xl border bg-white relative overflow-hidden'>
+          {!imageLoading && !doctorImage && (
+            <Image
+              src={default_avatar}
+              alt=''
+              fill
+              className='object-contain'
+            />
+          )}
+          {imageLoading && '...loading'}
+          {!imageLoading && doctorImage && (
+            <Image src={doctorImage} alt='' fill className='object-contain' />
+          )}
+        </div>
+        <label
+          htmlFor='image'
+          className='cursor-pointer bg-main_green flex items-center w-fit px-5 py-2 text-white gap-2 rounded-xl'
+        >
+          <IoImagesOutline />
+          Choose your photo
+        </label>
+        <input
+          type='file'
+          id='image'
+          onChange={uploadFile}
+          className='absolute opacity-0 pointer-events-none'
+        />
       </div>
     </form>
   )
