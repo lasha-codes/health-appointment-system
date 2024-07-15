@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { IoImagesOutline } from 'react-icons/io5'
 import default_avatar from '@/assets/default-avatar.svg'
 import Image from 'next/image'
+import image_loader from '@/assets/loader.webp'
 
 const DoctorForm = () => {
   const [phoneValue, setPhoneValue] = useState<string>('+995')
@@ -28,9 +29,7 @@ const DoctorForm = () => {
       const fileReader = new FileReader()
       fileReader.readAsDataURL(file)
 
-      fileReader.onloadstart = () => {
-        setImageLoading(true)
-      }
+      setImageLoading(true)
 
       fileReader.onload = () => {
         resolve(fileReader.result)
@@ -85,7 +84,11 @@ const DoctorForm = () => {
         />
       </div>
       <div className='flex flex-col items-start gap-2 mt-5'>
-        <div className='w-[400px] h-[300px] rounded-xl border bg-white relative overflow-hidden'>
+        <div
+          className={`w-[400px] h-[300px] rounded-xl border bg-white relative overflow-hidden ${
+            doctorImage && 'bg-transparent border-transparent'
+          }`}
+        >
           {!imageLoading && !doctorImage && (
             <Image
               src={default_avatar}
@@ -94,14 +97,16 @@ const DoctorForm = () => {
               className='object-contain'
             />
           )}
-          {imageLoading && '...loading'}
+          {imageLoading && (
+            <Image src={image_loader} alt='' fill className='object-cover' />
+          )}
           {!imageLoading && doctorImage && (
             <Image src={doctorImage} alt='' fill className='object-contain' />
           )}
         </div>
         <label
           htmlFor='image'
-          className='cursor-pointer bg-main_green flex items-center w-fit px-5 py-2 text-white gap-2 rounded-xl'
+          className='cursor-pointer bg-main_green hover:bg-main_green/80 transition-all duration-200 flex items-center w-fit px-5 py-2 text-white gap-2 rounded-xl'
         >
           <IoImagesOutline />
           Choose your photo
