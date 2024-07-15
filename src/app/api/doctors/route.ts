@@ -31,7 +31,7 @@ export const POST = async (request: Request) => {
         },
       })
     }
-    const createdDoctor = await db.doctor.create({
+    const createdDoctor: Doctor = await db.doctor.create({
       data: {
         userId: userInDb?.id as string,
         email: email,
@@ -45,7 +45,7 @@ export const POST = async (request: Request) => {
     })
 
     return NextResponse.json({ new_doctor: createdDoctor })
-  } catch (err) {
-    console.log(err)
+  } catch (err: any) {
+    return NextResponse.json({ message: err.message })
   }
 }
