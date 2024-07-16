@@ -10,6 +10,7 @@ export type service_type = {
   title: string
   image: StaticImageData
   summary: string
+  charge?: number
 }
 
 export const services: service_type[] = [
