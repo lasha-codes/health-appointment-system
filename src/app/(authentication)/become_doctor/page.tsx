@@ -23,7 +23,7 @@ const BecomeDoctorPage = () => {
             <DoctorForm />
           </div>
         </div>
-        <div className='flex items-center gap-5 flex-wrap'>
+        <div className='flex items-center gap-6 flex-wrap'>
           {services.map((service: service_type) => {
             return <ServiceCard {...service} key={service.id} />
           })}
