@@ -23,13 +23,26 @@ const doctor_slice = createSlice({
           return item.id !== added_service.id
         })
       } else {
-        state.selected_services = [...state.selected_services, service]
+        state.selected_services = [
+          ...state.selected_services,
+          { ...service, charge: 0 },
+        ]
       }
       console.log(state.selected_services)
+    },
+    input_charge: (state, { payload }) => {
+      const { value, service_id }: { value: number; service_id: number } =
+        payload
+      const target_service = state.selected_services.find((service) => {
+        return service.id === service_id
+      })
+      if (target_service) {
+        target_service.charge = value
+      }
     },
   },
 })
 
 export default doctor_slice.reducer
 
-export const { toggle_service } = doctor_slice.actions
+export const { toggle_service, input_charge } = doctor_slice.actions

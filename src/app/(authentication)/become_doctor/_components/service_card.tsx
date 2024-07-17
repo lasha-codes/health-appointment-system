@@ -4,7 +4,7 @@ import { service_type } from '@/data/services/services'
 import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggle_service } from '@/app/_library/slices/doctor_slice'
-import { useState } from 'react'
+import { input_charge } from '@/app/_library/slices/doctor_slice'
 
 const ServiceCard = ({ id, title, image, summary }: service_type) => {
   const dispatch = useDispatch()
@@ -13,7 +13,12 @@ const ServiceCard = ({ id, title, image, summary }: service_type) => {
   const is_selected = selected_services.find((service) => {
     return service.id === id
   })
-  const [chargePrice, setChargePrice] = useState<number>()
+
+  const current_service: service_type | undefined = selected_services.find(
+    (service) => {
+      return service.id === id
+    }
+  )
 
   return (
     <div
@@ -38,10 +43,12 @@ const ServiceCard = ({ id, title, image, summary }: service_type) => {
         </h3>
         <p className='text-[12px] text-gray-500'>{summary}</p>
         <input
-          value={chargePrice}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setChargePrice(parseInt(e.target.value))
-          }
+          value={current_service ? current_service.charge : 0}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(
+              input_charge({ value: parseInt(e.target.value), service_id: id })
+            )
+          }}
           type='number'
           onClick={(e) => e.stopPropagation()}
           className='border-main_green border w-[200px] rounded text-sm px-3 py-0.5'
