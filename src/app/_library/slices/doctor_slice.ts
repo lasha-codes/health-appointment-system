@@ -13,7 +13,7 @@ type state_type = {
 
 const initial_state: state_type = {
   selected_services: [],
-  available_times: [],
+  available_times: [{ timeline: 'AM', time: null }],
 }
 
 const doctor_slice = createSlice({

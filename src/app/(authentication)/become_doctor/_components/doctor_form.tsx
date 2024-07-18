@@ -42,7 +42,7 @@ const DoctorForm = () => {
   }
 
   return (
-    <form className='w-full mt-20'>
+    <form className='w-fit mt-20'>
       <div className='flex items-start gap-3 flex-col w-full'>
         <div className='flex flex-col items-start gap-1.5 w-full'>
           <label htmlFor='username' className='cursor-pointer text-[15px]'>
