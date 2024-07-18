@@ -53,10 +53,19 @@ const doctor_slice = createSlice({
         { timeline: 'AM', time: null },
       ]
     },
+    change_time: (state, { payload }) => {
+      const { time_idx, value }: { time_idx: number; value: number } = payload
+      const targeted_time = state.available_times.find((time, index) => {
+        return index === time_idx
+      })
+      if (targeted_time) {
+        targeted_time.time = value
+      }
+    },
   },
 })
 
 export default doctor_slice.reducer
 
-export const { toggle_service, input_charge, add_available_time } =
+export const { toggle_service, input_charge, add_available_time, change_time } =
   doctor_slice.actions
