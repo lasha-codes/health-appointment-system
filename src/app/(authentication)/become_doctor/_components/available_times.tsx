@@ -6,6 +6,7 @@ import {
   add_available_time,
   times,
   change_time,
+  toggle_timeline,
 } from '@/app/_library/slices/doctor_slice'
 
 const AvailableTimesSelector = () => {
@@ -19,9 +20,12 @@ const AvailableTimesSelector = () => {
         {available_times.map((time, idx) => {
           return (
             <div key={idx} className='flex items-center w-fit gap-5'>
-              <div className='p-1.5 rounded border border-gray-300 hover:bg-gray-300 transition-all duration-300 text-main_green cursor-pointer active:scale-95'>
+              <button
+                onClick={() => dispatch(toggle_timeline({ time_idx: idx }))}
+                className='p-1.5 rounded border border-gray-300 hover:bg-gray-300 transition-all duration-300 text-main_green cursor-pointer active:scale-95'
+              >
                 {time.timeline}
-              </div>
+              </button>
               <input
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   dispatch(

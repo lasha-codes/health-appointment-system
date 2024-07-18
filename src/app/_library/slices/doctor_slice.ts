@@ -49,13 +49,14 @@ const doctor_slice = createSlice({
     },
     add_available_time: (state) => {
       let every_time_filled_out: boolean = false
-      state.available_times.forEach((time) => {
-        if (!time.time) {
+      for (const idx in state.available_times) {
+        if (!state.available_times[idx].time) {
           every_time_filled_out = false
+          break
         } else {
           every_time_filled_out = true
         }
-      })
+      }
       if (every_time_filled_out) {
         state.available_times = [
           ...state.available_times,
@@ -72,10 +73,28 @@ const doctor_slice = createSlice({
         targeted_time.time = value
       }
     },
+    toggle_timeline: (state, { payload }) => {
+      const { time_idx }: { time_idx: number } = payload
+      const targeted_time = state.available_times.find((_, idx) => {
+        return idx === time_idx
+      })
+      if (targeted_time) {
+        if (targeted_time.timeline === 'AM') {
+          targeted_time.timeline = 'PM'
+        } else {
+          targeted_time.timeline = 'AM'
+        }
+      }
+    },
   },
 })
 
 export default doctor_slice.reducer
 
-export const { toggle_service, input_charge, add_available_time, change_time } =
-  doctor_slice.actions
+export const {
+  toggle_service,
+  input_charge,
+  add_available_time,
+  change_time,
+  toggle_timeline,
+} = doctor_slice.actions
