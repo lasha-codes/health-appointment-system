@@ -48,10 +48,20 @@ const doctor_slice = createSlice({
       }
     },
     add_available_time: (state) => {
-      state.available_times = [
-        ...state.available_times,
-        { timeline: 'AM', time: null },
-      ]
+      let every_time_filled_out: boolean = false
+      state.available_times.forEach((time) => {
+        if (!time.time) {
+          every_time_filled_out = false
+        } else {
+          every_time_filled_out = true
+        }
+      })
+      if (every_time_filled_out) {
+        state.available_times = [
+          ...state.available_times,
+          { timeline: 'AM', time: null },
+        ]
+      }
     },
     change_time: (state, { payload }) => {
       const { time_idx, value }: { time_idx: number; value: number } = payload
