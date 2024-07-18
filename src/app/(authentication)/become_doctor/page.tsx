@@ -1,12 +1,13 @@
 import DoctorForm from './_components/doctor_form'
 import ServiceCard from './_components/service_card'
 import { service_type, services } from '@/data/services/services'
+import AvailableTimesSelector from './_components/available_times'
 
 const BecomeDoctorPage = () => {
   return (
     <main className='mt-10'>
-      <div className='flex items-start justify-between gap-5'>
-        <div className='w-full flex items-start justify-between gap-20 max-lg:flex-col'>
+      <div className='flex items-start flex-wrap justify-between gap-5'>
+        <div className='w-full flex items-start justify-between gap-20'>
           <div className='w-full'>
             <div className='flex flex-col items-start gap-5'>
               <h2 className='text-2xl font-medium text-black'>
@@ -22,6 +23,7 @@ const BecomeDoctorPage = () => {
             </div>
             <DoctorForm />
           </div>
+          <AvailableTimesSelector />
         </div>
         <div className='flex items-center gap-6 flex-wrap'>
           {services.map((service: service_type) => {
