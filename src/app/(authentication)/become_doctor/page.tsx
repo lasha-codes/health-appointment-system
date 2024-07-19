@@ -2,6 +2,7 @@ import DoctorForm from './_components/doctor_form'
 import ServiceCard from './_components/service_card'
 import { service_type, services } from '@/data/services/services'
 import AvailableTimesSelector from './_components/available_times'
+import SocialLinks from './_components/social_links'
 
 const BecomeDoctorPage = () => {
   return (
@@ -30,7 +31,10 @@ const BecomeDoctorPage = () => {
                 <DoctorForm />
               </div>
             </div>
-            <AvailableTimesSelector />
+            <div className='flex flex-col items-start gap-10'>
+              <AvailableTimesSelector />
+              <SocialLinks />
+            </div>
           </div>
         </div>
         <div className='flex items-center gap-6 flex-wrap'>

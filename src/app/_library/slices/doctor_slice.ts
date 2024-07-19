@@ -7,14 +7,21 @@ export type times = {
   time: number | null
 }
 
+export type socials_type = {
+  platform: 'INSTAGRAM' | 'FACEBOOK' | 'GITHUB' | 'LINKEDIN' | 'TIKTOK'
+  account_link: string
+}
+
 type state_type = {
   selected_services: service_type[]
   available_times: times[]
+  social_links: socials_type[]
 }
 
 const initial_state: state_type = {
   selected_services: [],
   available_times: [{ timeline: 'AM', time: null }],
+  social_links: [],
 }
 
 const doctor_slice = createSlice({
