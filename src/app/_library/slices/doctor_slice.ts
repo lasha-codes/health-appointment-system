@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { service_type } from '@/data/services/services'
+import toast from 'react-hot-toast'
 
 export type times = {
   timeline: 'PM' | 'AM'
@@ -58,10 +59,21 @@ const doctor_slice = createSlice({
         }
       }
       if (every_time_filled_out) {
-        state.available_times = [
-          ...state.available_times,
-          { timeline: 'AM', time: null },
-        ]
+        if (state.available_times.length < 6) {
+          state.available_times = [
+            ...state.available_times,
+            { timeline: 'AM', time: null },
+          ]
+        } else {
+          toast.error('cant add more than 6')
+        }
+      }
+    },
+    remove_available_time: (state) => {
+      if (state.available_times.length > 1) {
+        state.available_times = state.available_times.filter((_, idx) => {
+          return state.available_times.length - 1 !== idx
+        })
       }
     },
     change_time: (state, { payload }) => {
@@ -97,4 +109,5 @@ export const {
   add_available_time,
   change_time,
   toggle_timeline,
+  remove_available_time,
 } = doctor_slice.actions

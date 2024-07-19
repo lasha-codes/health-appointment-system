@@ -67,8 +67,9 @@ const DoctorForm = () => {
         if (!available_times[idx].time) {
           times_pass = false
           break
+        } else {
+          times_pass = true
         }
-        times_pass = true
       }
       if (available_times.length > 6) {
         return toast.error('Maximum amount of available times is 6')

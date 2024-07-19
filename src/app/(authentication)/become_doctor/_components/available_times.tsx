@@ -7,7 +7,9 @@ import {
   times,
   change_time,
   toggle_timeline,
+  remove_available_time,
 } from '@/app/_library/slices/doctor_slice'
+import { FaMinus } from 'react-icons/fa'
 
 const AvailableTimesSelector = () => {
   const dispatch = useDispatch()
@@ -16,7 +18,7 @@ const AvailableTimesSelector = () => {
   )
 
   return (
-    <div className='flex flex-col items-end gap-5 w-fit'>
+    <div className='flex flex-col gap-5 w-fit'>
       <div className='flex flex-col items-start w-fit gap-4'>
         {available_times.map((time, idx) => {
           return (
@@ -44,10 +46,22 @@ const AvailableTimesSelector = () => {
           )
         })}
       </div>
-      <FaPlus
-        onClick={() => dispatch(add_available_time())}
-        className='active:scale-90 cursor-pointer hover:text-black/80 text-lg'
-      />
+      <div
+        className={`w-full flex items-center justify-between ${
+          available_times.length < 2 && '!justify-end'
+        }`}
+      >
+        {available_times.length > 1 && (
+          <FaMinus
+            onClick={() => dispatch(remove_available_time())}
+            className='active:scale-90 cursor-pointer text-red-600 hover:text-red-600 transition-all text-lg'
+          />
+        )}
+        <FaPlus
+          onClick={() => dispatch(add_available_time())}
+          className='active:scale-90 cursor-pointer hover:text-black/80 text-lg'
+        />
+      </div>
     </div>
   )
 }
