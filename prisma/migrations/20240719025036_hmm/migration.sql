@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Doctor" ALTER COLUMN "image_url" SET DATA TYPE VARCHAR(1000000);

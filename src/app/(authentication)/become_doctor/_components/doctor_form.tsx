@@ -54,6 +54,7 @@ const DoctorForm = () => {
     useSelector((state: any) => state.doctor)
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault()
+
     try {
       const response = await axios.post('/api/doctors', {
         name,
@@ -62,7 +63,9 @@ const DoctorForm = () => {
         photo: doctorImage,
         services: selected_services,
         working_times: available_times,
+        summary,
       })
+      console.log(response.data)
     } catch (err: any) {
       toast.error(err.message)
     }
@@ -96,7 +99,7 @@ const DoctorForm = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
             }
-            type='text'
+            type='email'
             id='email'
             placeholder='ex. john.doe@gmail.com'
             className='border rounded w-[500px] max-md:w-full border-main_green outline-none px-4 py-1 text-gray-600 font-medium placeholder:text-sm placeholder:font-light'

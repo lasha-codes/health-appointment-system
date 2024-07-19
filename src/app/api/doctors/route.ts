@@ -37,7 +37,7 @@ export const POST = async (request: Request) => {
         email: email,
         name,
         image_url: photo,
-        phonenumber: phone_number,
+        phonenumber: Number(phone_number),
         services,
         summary,
         working_times,
@@ -45,6 +45,24 @@ export const POST = async (request: Request) => {
     })
 
     return NextResponse.json({ new_doctor: createdDoctor })
+  } catch (err: any) {
+    return NextResponse.json({ message: err.message })
+  }
+}
+
+export const GET = async () => {
+  try {
+    const doctors = await db.doctor.findMany()
+    return NextResponse.json({ doctors })
+  } catch (err: any) {
+    return NextResponse.json({ message: err.message })
+  }
+}
+
+export const DELETE = async () => {
+  try {
+    const deleted_doctors = await db.doctor.deleteMany()
+    return NextResponse.json({ deleted_doctors })
   } catch (err: any) {
     return NextResponse.json({ message: err.message })
   }
