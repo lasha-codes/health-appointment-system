@@ -17,6 +17,7 @@ const DoctorForm = () => {
   const [phoneValue, setPhoneValue] = useState<string>('+995')
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [summary, setSummary] = useState<string>('')
   const [doctorImage, setDoctorImage] = useState<string>('')
   const [imageLoading, setImageLoading] = useState<boolean>(false)
 
@@ -51,16 +52,24 @@ const DoctorForm = () => {
     available_times,
   }: { selected_services: service_type; available_times: times[] } =
     useSelector((state: any) => state.doctor)
-  const submitForm = async () => {
+  const submitForm = async (e: React.FormEvent) => {
+    e.preventDefault()
     try {
-      const response = await axios.post('/api/doctors', {})
+      const response = await axios.post('/api/doctors', {
+        name,
+        email,
+        phone_number: phoneValue,
+        photo: doctorImage,
+        services: selected_services,
+        working_times: available_times,
+      })
     } catch (err: any) {
       toast.error(err.message)
     }
   }
 
   return (
-    <form className='w-fit mt-20'>
+    <form onSubmit={submitForm} className='w-fit mt-20'>
       <div className='flex items-start gap-3 flex-col w-full'>
         <div className='flex flex-col items-start gap-1.5 w-full'>
           <label htmlFor='username' className='cursor-pointer text-[15px]'>
@@ -100,6 +109,21 @@ const DoctorForm = () => {
           onChange={setPhoneValue as any}
           defaultCountry='GE'
         />
+
+        <div className='flex flex-col items-start gap-1.5 w-full'>
+          <label htmlFor='summary' className='cursor-pointer text-[15px]'>
+            Tell us about yourself
+          </label>
+          <textarea
+            value={summary}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setSummary(e.target.value)
+            }
+            id='summary'
+            placeholder='ex. john.doe@gmail.com'
+            className='border rounded w-[500px] resize-none max-md:w-full border-main_green outline-none px-4 py-1 text-gray-600 font-medium placeholder:text-sm placeholder:font-light'
+          />
+        </div>
       </div>
       <div className='flex flex-col items-start gap-2 mt-5'>
         <div
