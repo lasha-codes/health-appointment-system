@@ -7,6 +7,11 @@ import { IoImagesOutline } from 'react-icons/io5'
 import default_avatar from '@/assets/default-avatar.svg'
 import Image from 'next/image'
 import image_loader from '@/assets/loader.webp'
+import { useSelector } from 'react-redux'
+import { service_type } from '@/data/services/services'
+import { times } from '@/app/_library/slices/doctor_slice'
+import toast from 'react-hot-toast'
+import axios from 'axios'
 
 const DoctorForm = () => {
   const [phoneValue, setPhoneValue] = useState<string>('+995')
@@ -39,6 +44,19 @@ const DoctorForm = () => {
         reject(error)
       }
     })
+  }
+
+  const {
+    selected_services,
+    available_times,
+  }: { selected_services: service_type; available_times: times[] } =
+    useSelector((state: any) => state.doctor)
+  const submitForm = async () => {
+    try {
+      const response = await axios.post('/api/doctors', {})
+    } catch (err: any) {
+      toast.error(err.message)
+    }
   }
 
   return (
@@ -118,6 +136,12 @@ const DoctorForm = () => {
           className='absolute opacity-0 pointer-events-none'
         />
       </div>
+      <button
+        type='submit'
+        className='w-1/2 max-md:w-full bg-gradient-to-r from-[#47BD96] to-[#4888B1] transition-all duration-300 py-3 rounded-xl text-white mt-10 drop-shadow-lg shadow-[#4888B1] hover:drop-shadow-none opacity-70 hover:opacity-100'
+      >
+        Submit
+      </button>
     </form>
   )
 }

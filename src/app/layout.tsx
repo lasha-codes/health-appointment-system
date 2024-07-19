@@ -4,6 +4,8 @@ import './globals.css'
 import Header from '@/components/header'
 import { ClerkProvider } from '@clerk/nextjs'
 import ReduxProvider from '@/components/redux_provider'
+import { Toaster } from 'react-hot-toast'
+import axios from 'axios'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,6 +19,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  axios.defaults.baseURL = 'http://localhost:3000'
+
   return (
     <ClerkProvider signInUrl='login' signUpUrl='register'>
       <html lang='en'>
@@ -24,6 +28,7 @@ export default function RootLayout({
           <body
             className={`${inter.className} px-5 sm:px-10 md:px-14 lg:px-20 xl:px-[5.5rem] 2xl:px-[6.5rem] py-2 bg-[#ECECEC]`}
           >
+            <Toaster />
             <Header />
             {children}
           </body>

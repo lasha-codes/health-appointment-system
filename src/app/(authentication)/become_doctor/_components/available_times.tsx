@@ -14,6 +14,7 @@ const AvailableTimesSelector = () => {
   const { available_times }: { available_times: times[] } = useSelector(
     (state: any) => state.doctor
   )
+
   return (
     <div className='flex flex-col items-end gap-5 w-fit'>
       <div className='flex flex-col items-start w-fit gap-4'>
