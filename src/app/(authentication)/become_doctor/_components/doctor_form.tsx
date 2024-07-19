@@ -50,12 +50,35 @@ const DoctorForm = () => {
   const {
     selected_services,
     available_times,
-  }: { selected_services: service_type; available_times: times[] } =
+  }: { selected_services: service_type[]; available_times: times[] } =
     useSelector((state: any) => state.doctor)
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault()
 
     try {
+      let times_pass: boolean = false
+      if (!name || !email || !phoneValue || !summary) {
+        return toast.error('Please fill out all of the fields')
+      }
+      if (!doctorImage) {
+        return toast.error('Image for a doctor profile is required')
+      }
+      for (const idx in available_times) {
+        if (!available_times[idx].time) {
+          times_pass = false
+          break
+        }
+        times_pass = true
+      }
+      if (available_times.length > 6) {
+        return toast.error('Maximum amount of available times is 6')
+      }
+      if (!times_pass) {
+        return toast.error('available times field must be filled out')
+      }
+      if (selected_services.length === 0) {
+        return toast.error('minimum 1 service must be selected')
+      }
       const response = await axios.post('/api/doctors', {
         name,
         email,
@@ -65,7 +88,7 @@ const DoctorForm = () => {
         working_times: available_times,
         summary,
       })
-      console.log(response.data)
+      toast.success('Doctor account has been created')
     } catch (err: any) {
       toast.error(err.message)
     }
