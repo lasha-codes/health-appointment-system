@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { service_type } from '@/data/services/services'
 import toast from 'react-hot-toast'
-import { IconType } from 'react-icons/lib'
 
 export type times = {
   timeline: 'PM' | 'AM'
