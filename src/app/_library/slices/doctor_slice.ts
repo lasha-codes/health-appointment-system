@@ -123,6 +123,15 @@ const doctor_slice = createSlice({
       }
       console.log(state.social_links)
     },
+    change_social_link_value: (state, { payload }) => {
+      const { platform, value }: { platform: string; value: string } = payload
+      const platform_to_change = state.social_links.find((link) => {
+        return link.platform === platform
+      })
+      if (platform_to_change) {
+        platform_to_change.account_link = value
+      }
+    },
   },
 })
 
@@ -136,4 +145,5 @@ export const {
   toggle_timeline,
   remove_available_time,
   toggle_social_link,
+  change_social_link_value,
 } = doctor_slice.actions

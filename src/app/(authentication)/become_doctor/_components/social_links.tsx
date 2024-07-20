@@ -2,6 +2,7 @@
 import { social_links } from '@/data/social_links'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  change_social_link_value,
   socials_type,
   toggle_social_link,
 } from '@/app/_library/slices/doctor_slice'
@@ -72,6 +73,15 @@ const SocialLinks = () => {
               <Icon className='text-3xl' style={{ color: link.color }} />
               <input
                 type='text'
+                value={link.account_link}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  dispatch(
+                    change_social_link_value({
+                      platform: link.platform,
+                      value: e.target.value,
+                    })
+                  )
+                }
                 className='outline-none bg-transparent border-b-2 placeholder:capitalize border-gray-500'
                 placeholder={`${link.platform.toLowerCase()} profile link`}
               />
