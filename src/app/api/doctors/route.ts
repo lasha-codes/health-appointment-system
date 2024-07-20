@@ -13,6 +13,7 @@ export const POST = async (request: Request) => {
       photo,
       services,
       working_times,
+      social_links,
       summary,
     } = body
     if (!currUser) {
@@ -41,6 +42,7 @@ export const POST = async (request: Request) => {
         services,
         summary,
         working_times,
+        socials: social_links,
       },
     })
 

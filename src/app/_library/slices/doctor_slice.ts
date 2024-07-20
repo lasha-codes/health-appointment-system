@@ -132,6 +132,11 @@ const doctor_slice = createSlice({
         platform_to_change.account_link = value
       }
     },
+    reset_state: (state) => {
+      state.selected_services = []
+      state.available_times = [{ timeline: 'AM', time: null }]
+      state.social_links = []
+    },
   },
 })
 
@@ -146,4 +151,5 @@ export const {
   remove_available_time,
   toggle_social_link,
   change_social_link_value,
+  reset_state,
 } = doctor_slice.actions

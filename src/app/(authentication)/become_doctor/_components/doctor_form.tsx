@@ -7,13 +7,18 @@ import { IoImagesOutline } from 'react-icons/io5'
 import default_avatar from '@/assets/default-avatar.svg'
 import Image from 'next/image'
 import image_loader from '@/assets/loader.webp'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { service_type } from '@/data/services/services'
-import { times } from '@/app/_library/slices/doctor_slice'
+import {
+  reset_state,
+  socials_type,
+  times,
+} from '@/app/_library/slices/doctor_slice'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 
 const DoctorForm = () => {
+  const dispatch = useDispatch()
   const [phoneValue, setPhoneValue] = useState<string>('+995')
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -50,8 +55,12 @@ const DoctorForm = () => {
   const {
     selected_services,
     available_times,
-  }: { selected_services: service_type[]; available_times: times[] } =
-    useSelector((state: any) => state.doctor)
+    social_links,
+  }: {
+    selected_services: service_type[]
+    available_times: times[]
+    social_links: socials_type[]
+  } = useSelector((state: any) => state.doctor)
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -87,9 +96,17 @@ const DoctorForm = () => {
         photo: doctorImage,
         services: selected_services,
         working_times: available_times,
+        social_links,
         summary,
       })
-      toast.success('Doctor account has been created')
+      console.log(response)
+      dispatch(reset_state())
+      setDoctorImage('')
+      setEmail('')
+      setName('')
+      setPhoneValue('+995')
+      setSummary('')
+      toast.success('Doctor profile has been set up')
     } catch (err: any) {
       toast.error(err.message)
     }
