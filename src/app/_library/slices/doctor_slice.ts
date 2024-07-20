@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { service_type } from '@/data/services/services'
 import toast from 'react-hot-toast'
+import { IconType } from 'react-icons/lib'
 
 export type times = {
   timeline: 'PM' | 'AM'
@@ -10,6 +11,7 @@ export type times = {
 export type socials_type = {
   platform: 'INSTAGRAM' | 'FACEBOOK' | 'GITHUB' | 'LINKEDIN' | 'TIKTOK'
   account_link: string
+  color: string
 }
 
 type state_type = {
@@ -105,6 +107,23 @@ const doctor_slice = createSlice({
         }
       }
     },
+    toggle_social_link: (state, { payload }) => {
+      const { platform, color }: socials_type = payload
+      const already_added_social = state.social_links.find((link) => {
+        return link.platform === platform
+      })
+      if (already_added_social) {
+        state.social_links = state.social_links.filter((link) => {
+          return link.platform !== already_added_social.platform
+        })
+      } else {
+        state.social_links = [
+          ...state.social_links,
+          { platform, color, account_link: '' },
+        ]
+      }
+      console.log(state.social_links)
+    },
   },
 })
 
@@ -117,4 +136,5 @@ export const {
   change_time,
   toggle_timeline,
   remove_available_time,
+  toggle_social_link,
 } = doctor_slice.actions
