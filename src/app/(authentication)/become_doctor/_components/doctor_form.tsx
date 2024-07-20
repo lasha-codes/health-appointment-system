@@ -16,9 +16,11 @@ import {
 } from '@/app/_library/slices/doctor_slice'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 const DoctorForm = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const [phoneValue, setPhoneValue] = useState<string>('+995')
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -107,6 +109,7 @@ const DoctorForm = () => {
       setPhoneValue('+995')
       setSummary('')
       toast.success('Doctor profile has been set up')
+      router.replace('/')
     } catch (err: any) {
       toast.error(err.message)
     }
