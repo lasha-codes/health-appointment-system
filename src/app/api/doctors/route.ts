@@ -52,10 +52,25 @@ export const POST = async (request: Request) => {
   }
 }
 
+// export const GET = async () => {
+//   try {
+//     const doctors = await db.doctor.findMany()
+//     return NextResponse.json({ doctors })
+//   } catch (err: any) {
+//     return NextResponse.json({ message: err.message })
+//   }
+// }
+
 export const GET = async () => {
   try {
-    const doctors = await db.doctor.findMany()
-    return NextResponse.json({ doctors })
+    const loggedUser = await currentUser()
+    if (!loggedUser) {
+      return NextResponse.json({ message: 'Unauthorized request' })
+    }
+    const doctor = await db.doctor.findFirst({
+      where: { userId: loggedUser.id },
+    })
+    return NextResponse.json({ profile: doctor })
   } catch (err: any) {
     return NextResponse.json({ message: err.message })
   }
