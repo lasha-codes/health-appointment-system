@@ -1,6 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { service_type } from '@/data/services/services'
 import toast from 'react-hot-toast'
+import { Doctor } from '@prisma/client'
+import axios from 'axios'
 
 export type times = {
   timeline: 'PM' | 'AM'
@@ -14,16 +16,32 @@ export type socials_type = {
 }
 
 type state_type = {
+  doctor_profile: Doctor | null
   selected_services: service_type[]
   available_times: times[]
   social_links: socials_type[]
 }
 
 const initial_state: state_type = {
+  doctor_profile: null,
   selected_services: [],
   available_times: [{ timeline: 'AM', time: null }],
   social_links: [],
 }
+
+export const get_doctor_profile = createAsyncThunk(
+  'fetch_profile',
+  async () => {
+    try {
+      const {
+        data: { profile },
+      } = await axios.get('/api/doctors')
+      return profile
+    } catch (err: any) {
+      toast.error(err.message)
+    }
+  }
+)
 
 const doctor_slice = createSlice({
   name: 'doctor',
@@ -137,6 +155,18 @@ const doctor_slice = createSlice({
       state.available_times = [{ timeline: 'AM', time: null }]
       state.social_links = []
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(get_doctor_profile.rejected, (state) => {
+      state.doctor_profile = null
+    })
+    builder.addCase(
+      get_doctor_profile.fulfilled,
+      (state, { payload }: { payload: Doctor | null }) => {
+        state.doctor_profile = payload
+        console.log(state.doctor_profile)
+      }
+    )
   },
 })
 

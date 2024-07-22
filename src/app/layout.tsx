@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/header'
 import { ClerkProvider } from '@clerk/nextjs'
-import ReduxProvider from '@/components/redux_provider'
+import ReduxProvider from '@/components/providers/redux_provider'
 import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 

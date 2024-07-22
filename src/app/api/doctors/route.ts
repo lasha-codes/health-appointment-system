@@ -52,15 +52,6 @@ export const POST = async (request: Request) => {
   }
 }
 
-// export const GET = async () => {
-//   try {
-//     const doctors = await db.doctor.findMany()
-//     return NextResponse.json({ doctors })
-//   } catch (err: any) {
-//     return NextResponse.json({ message: err.message })
-//   }
-// }
-
 export const GET = async () => {
   try {
     const loggedUser = await currentUser()
@@ -75,10 +66,6 @@ export const GET = async () => {
     return NextResponse.json({ message: err.message })
   }
 }
-
-console.log(
-  'feeling like throwing up going to sleep and i dont wanna break my streak just in case'
-)
 
 export const DELETE = async () => {
   try {
