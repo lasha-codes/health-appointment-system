@@ -109,7 +109,6 @@ const DoctorForm = () => {
       setPhoneValue('+995')
       setSummary('')
       toast.success('Doctor profile has been set up')
-      router.replace('/')
     } catch (err: any) {
       toast.error(err.message)
     }

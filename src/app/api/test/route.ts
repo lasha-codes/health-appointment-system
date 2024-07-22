@@ -18,3 +18,12 @@ export const POST = async (request: Request) => {
     return NextResponse.json({ error: err.message })
   }
 }
+
+export const DELETE = async () => {
+  try {
+    const deleted_doctors = await db.doctor.deleteMany()
+    return NextResponse.json({ deleted_doctors })
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message })
+  }
+}

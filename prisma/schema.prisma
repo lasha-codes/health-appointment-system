@@ -13,24 +13,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(uuid())
-  username  String
-  email     String   @unique
-  image_url String?
-  Doctor    Doctor[]
-}
-
 model Doctor {
   id            String  @id @default(uuid())
   name          String
   image_url     String  @db.VarChar(1000000)
   email         String  @unique
-  phonenumber   Int     @unique
+  phonenumber   String  @unique
   summary       String
   bio           String?
-  user          User    @relation(fields: [userId], references: [id])
-  userId        String
+  userId        String  @unique
   working_times Json[]
   services      Json[]
   socials       Json[]

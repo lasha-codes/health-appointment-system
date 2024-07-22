@@ -19,26 +19,14 @@ export const POST = async (request: Request) => {
     if (!currUser) {
       return NextResponse.json({ message: 'Unauthorized request' })
     }
-    let userInDb = await db.user.findUnique({
-      where: { email: currUser.primaryEmailAddress?.emailAddress },
-    })
 
-    if (!userInDb) {
-      userInDb = await db.user.create({
-        data: {
-          email: currUser.primaryEmailAddress?.emailAddress as string,
-          username: currUser.fullName as string,
-          image_url: currUser.imageUrl,
-        },
-      })
-    }
     const createdDoctor: Doctor = await db.doctor.create({
       data: {
-        userId: userInDb?.id as string,
+        userId: currUser.id as string,
         email: email,
         name,
         image_url: photo,
-        phonenumber: Number(phone_number),
+        phonenumber: phone_number,
         services,
         summary,
         working_times,
@@ -58,7 +46,7 @@ export const GET = async () => {
     if (!loggedUser) {
       return NextResponse.json({ message: 'Unauthorized request' })
     }
-    const doctor = await db.doctor.findFirst({
+    const doctor = await db.doctor.findUnique({
       where: { userId: loggedUser.id },
     })
     return NextResponse.json({ profile: doctor })
