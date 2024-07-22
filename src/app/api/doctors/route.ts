@@ -76,6 +76,10 @@ export const GET = async () => {
   }
 }
 
+console.log(
+  'feeling like throwing up going to sleep and i dont wanna break my streak just in case'
+)
+
 export const DELETE = async () => {
   try {
     const deleted_doctors = await db.doctor.deleteMany()
