@@ -155,6 +155,9 @@ const doctor_slice = createSlice({
       state.available_times = [{ timeline: 'AM', time: null }]
       state.social_links = []
     },
+    set_doctor: (state, { payload }) => {
+      state.doctor_profile = payload
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(get_doctor_profile.rejected, (state) => {
@@ -182,4 +185,5 @@ export const {
   toggle_social_link,
   change_social_link_value,
   reset_state,
+  set_doctor,
 } = doctor_slice.actions

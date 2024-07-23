@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { service_type } from '@/data/services/services'
 import {
   reset_state,
+  set_doctor,
   socials_type,
   times,
 } from '@/app/_library/slices/doctor_slice'
@@ -101,7 +102,7 @@ const DoctorForm = () => {
         social_links,
         summary,
       })
-      console.log(response)
+      dispatch(set_doctor(response))
       dispatch(reset_state())
       setDoctorImage('')
       setEmail('')
@@ -109,6 +110,7 @@ const DoctorForm = () => {
       setPhoneValue('+995')
       setSummary('')
       toast.success('Doctor profile has been set up')
+      router.replace('')
     } catch (err: any) {
       toast.error(err.message)
     }
