@@ -2,7 +2,7 @@
 
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IoImagesOutline } from 'react-icons/io5'
 import default_avatar from '@/assets/default-avatar.svg'
 import Image from 'next/image'
@@ -18,6 +18,7 @@ import {
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import { Doctor } from '@prisma/client'
 
 const DoctorForm = () => {
   const dispatch = useDispatch()
@@ -28,6 +29,23 @@ const DoctorForm = () => {
   const [summary, setSummary] = useState<string>('')
   const [doctorImage, setDoctorImage] = useState<string>('')
   const [imageLoading, setImageLoading] = useState<boolean>(false)
+  const {
+    selected_services,
+    available_times,
+    social_links,
+    doctor_profile,
+  }: {
+    selected_services: service_type[]
+    available_times: times[]
+    social_links: socials_type[]
+    doctor_profile: Doctor | null
+  } = useSelector((state: any) => state.doctor)
+
+  useEffect(() => {
+    if (doctor_profile) {
+      return router.replace('/')
+    }
+  }, [doctor_profile])
 
   const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0]
@@ -55,15 +73,6 @@ const DoctorForm = () => {
     })
   }
 
-  const {
-    selected_services,
-    available_times,
-    social_links,
-  }: {
-    selected_services: service_type[]
-    available_times: times[]
-    social_links: socials_type[]
-  } = useSelector((state: any) => state.doctor)
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault()
 

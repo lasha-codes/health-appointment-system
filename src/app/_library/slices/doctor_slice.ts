@@ -167,7 +167,6 @@ const doctor_slice = createSlice({
       get_doctor_profile.fulfilled,
       (state, { payload }: { payload: Doctor | null }) => {
         state.doctor_profile = payload
-        console.log(state.doctor_profile)
       }
     )
   },
