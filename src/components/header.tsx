@@ -6,10 +6,15 @@ import logo from '@/assets/logo.png'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useAuth, UserButton } from '@clerk/nextjs'
+import { useSelector } from 'react-redux'
+import { Doctor } from '@prisma/client'
 
 const Header = () => {
   const pathname = usePathname()
   const { sessionId } = useAuth()
+  const { doctor_profile }: { doctor_profile: Doctor | null } = useSelector(
+    (state: any) => state.doctor
+  )
   return (
     <header className='w-full flex justify-between items-center'>
       <Link
@@ -55,12 +60,21 @@ const Header = () => {
           </div>
         ) : (
           <div className='flex items-center gap-5'>
-            <Link
-              href='/become_doctor'
-              className='font-medium text-main_green hover:underline'
-            >
-              How to become doctor?
-            </Link>
+            {doctor_profile ? (
+              <Link
+                href='doctor_profile'
+                className='font-medium text-main_green hover:underline'
+              >
+                Doctor profile
+              </Link>
+            ) : (
+              <Link
+                href='/become_doctor'
+                className='font-medium text-main_green hover:underline'
+              >
+                How to become doctor?
+              </Link>
+            )}
             <UserButton />
           </div>
         )}
