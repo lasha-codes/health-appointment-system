@@ -4,6 +4,14 @@ import { Doctor } from '@prisma/client'
 import Image from 'next/image'
 import { BsDot } from 'react-icons/bs'
 import { useState } from 'react'
+import {
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
+  FaTiktok,
+  FaGithub,
+} from 'react-icons/fa'
+import Link from 'next/link'
 
 const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
   const [showSummary, setShowSummary] = useState<boolean>(false)
@@ -56,6 +64,58 @@ const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
                 Hide
               </span>
             )}
+          </div>
+          <div className='flex flex-col items-start gap-5 pt-3'>
+            <h3 className='text-[17px] font-medium'>Social Links</h3>
+            <div className='flex items-center gap-5'>
+              {profile?.socials.map((social: any, idx: number) => {
+                const Social_Icon = ({ styles }: { styles: string }) => {
+                  if (social.platform === 'INSTAGRAM') {
+                    return (
+                      <FaInstagram
+                        className={styles}
+                        style={{ color: social.color }}
+                      />
+                    )
+                  } else if (social.platform === 'FACEBOOK') {
+                    return (
+                      <FaFacebook
+                        className={styles}
+                        style={{ color: social.color }}
+                      />
+                    )
+                  } else if (social.platform === 'LINKEDIN') {
+                    return (
+                      <FaLinkedin
+                        className={styles}
+                        style={{ color: social.color }}
+                      />
+                    )
+                  } else if (social.platform === 'TIKTOK') {
+                    return (
+                      <FaTiktok
+                        className={styles}
+                        style={{ color: social.color }}
+                      />
+                    )
+                  } else {
+                    return (
+                      <FaGithub
+                        className={styles}
+                        style={{ color: social.color }}
+                      />
+                    )
+                  }
+                }
+                return (
+                  <Link href={social.account_link} target='_blank' key={idx}>
+                    <Social_Icon
+                      styles={`text-2xl hover:opacity-80 transition-all duration-200 ease-linear cursor-pointer`}
+                    />
+                  </Link>
+                )
+              })}
+            </div>
           </div>
         </div>
         <div className='flex flex-col w-[400px] items-start border rounded-xl p-4 gap-4'>
