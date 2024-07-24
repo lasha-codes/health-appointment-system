@@ -57,8 +57,20 @@ export const GET = async () => {
 
 export const DELETE = async () => {
   try {
-    const deleted_doctors = await db.doctor.deleteMany()
-    return NextResponse.json({ deleted_doctors })
+    const sender = await currentUser()
+    if (!sender) {
+      return NextResponse.json({ message: 'Unauthorized request' })
+    }
+    const deleted_doctor = await db.doctor.delete({
+      where: { userId: sender.id },
+    })
+    if (deleted_doctor) {
+      return NextResponse.json({ deleted_doctor })
+    } else {
+      return NextResponse.json({
+        message: 'doctor profile on this user does not exist',
+      })
+    }
   } catch (err: any) {
     return NextResponse.json({ message: err.message })
   }

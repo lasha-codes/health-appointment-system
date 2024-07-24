@@ -1,4 +1,3 @@
-import { service_type } from '@/data/services/services'
 import { Doctor } from '@prisma/client'
 import Image from 'next/image'
 import { BsDot } from 'react-icons/bs'
