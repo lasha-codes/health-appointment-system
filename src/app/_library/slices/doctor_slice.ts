@@ -20,6 +20,7 @@ type state_type = {
   selected_services: service_type[]
   available_times: times[]
   social_links: socials_type[]
+  delete_toggle: boolean
 }
 
 const initial_state: state_type = {
@@ -27,6 +28,7 @@ const initial_state: state_type = {
   selected_services: [],
   available_times: [{ timeline: 'AM', time: null }],
   social_links: [],
+  delete_toggle: false,
 }
 
 export const get_doctor_profile = createAsyncThunk(
@@ -158,6 +160,12 @@ const doctor_slice = createSlice({
     set_doctor: (state, { payload }) => {
       state.doctor_profile = payload
     },
+    toggle_delete_box: (
+      state,
+      { payload: { bool } }: { payload: { bool: boolean } }
+    ) => {
+      state.delete_toggle = bool
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(get_doctor_profile.rejected, (state) => {
@@ -185,4 +193,5 @@ export const {
   change_social_link_value,
   reset_state,
   set_doctor,
+  toggle_delete_box,
 } = doctor_slice.actions
