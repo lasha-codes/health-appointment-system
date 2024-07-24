@@ -6,6 +6,7 @@ import TopProfileSection from './_components/top_section'
 import ConfirmDeletionBox from './_components/confirm_deletion'
 import { toggle_delete_box } from '../_library/slices/doctor_slice'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 const DoctorProfilePage = () => {
   const dispatch = useDispatch()
@@ -13,9 +14,18 @@ const DoctorProfilePage = () => {
   const {
     doctor_profile,
     delete_toggle,
-  }: { doctor_profile: Doctor | null; delete_toggle: boolean } = useSelector(
-    (state: any) => state.doctor
-  )
+    doctor_loaded,
+  }: {
+    doctor_profile: Doctor | null
+    delete_toggle: boolean
+    doctor_loaded: boolean
+  } = useSelector((state: any) => state.doctor)
+
+  useEffect(() => {
+    if (doctor_loaded && !doctor_profile) {
+      return router.replace('/')
+    }
+  }, [doctor_loaded])
 
   return (
     <div className='relative'>

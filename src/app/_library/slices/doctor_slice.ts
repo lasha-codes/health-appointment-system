@@ -21,6 +21,7 @@ type state_type = {
   available_times: times[]
   social_links: socials_type[]
   delete_toggle: boolean
+  doctor_loaded: boolean
 }
 
 const initial_state: state_type = {
@@ -29,6 +30,7 @@ const initial_state: state_type = {
   available_times: [{ timeline: 'AM', time: null }],
   social_links: [],
   delete_toggle: false,
+  doctor_loaded: false,
 }
 
 export const get_doctor_profile = createAsyncThunk(
@@ -173,11 +175,13 @@ const doctor_slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(get_doctor_profile.rejected, (state) => {
       state.doctor_profile = null
+      state.doctor_loaded = true
     })
     builder.addCase(
       get_doctor_profile.fulfilled,
       (state, { payload }: { payload: Doctor | null }) => {
         state.doctor_profile = payload
+        state.doctor_loaded = true
       }
     )
   },
