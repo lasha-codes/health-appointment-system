@@ -166,6 +166,9 @@ const doctor_slice = createSlice({
     ) => {
       state.delete_toggle = bool
     },
+    delete_doctor_profile: (state) => {
+      state.doctor_profile = null
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(get_doctor_profile.rejected, (state) => {
@@ -194,4 +197,5 @@ export const {
   reset_state,
   set_doctor,
   toggle_delete_box,
+  delete_doctor_profile,
 } = doctor_slice.actions

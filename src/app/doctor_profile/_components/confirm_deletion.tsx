@@ -1,10 +1,27 @@
 'use client'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggle_delete_box } from '@/app/_library/slices/doctor_slice'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
+import { delete_doctor_profile as delete_doctor } from '@/app/_library/slices/doctor_slice'
 
 const ConfirmDeletionBox = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { delete_toggle } = useSelector((state: any) => state.doctor)
+
+  const delete_doctor_profile = async () => {
+    try {
+      await axios.delete('/api/doctors')
+      dispatch(delete_doctor())
+      toast.success('doctor profile has been deleted.')
+      router.replace('/')
+    } catch (err: any) {
+      toast.error(err.message)
+    }
+  }
+
   return (
     <div
       className={`fixed left-1/2 ${
@@ -19,6 +36,7 @@ const ConfirmDeletionBox = () => {
       <div className='flex w-full items-center justify-between'>
         <button
           onClick={() => {
+            delete_doctor_profile()
             dispatch(toggle_delete_box({ bool: false }))
           }}
           className='bg-red-800 hover:bg-red-900 transition-all duration-300 ease-linear text-white px-6 py-1.5 rounded-lg'

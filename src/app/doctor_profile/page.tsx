@@ -1,18 +1,22 @@
 'use client'
+
 import { Doctor } from '@prisma/client'
 import { useSelector, useDispatch } from 'react-redux'
 import TopProfileSection from './_components/top_section'
 import ConfirmDeletionBox from './_components/confirm_deletion'
 import { toggle_delete_box } from '../_library/slices/doctor_slice'
+import { useRouter } from 'next/navigation'
 
 const DoctorProfilePage = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const {
     doctor_profile,
     delete_toggle,
   }: { doctor_profile: Doctor | null; delete_toggle: boolean } = useSelector(
     (state: any) => state.doctor
   )
+
   return (
     <div className='relative'>
       <div
