@@ -111,7 +111,7 @@ const DoctorForm = () => {
         social_links,
         summary,
       })
-      dispatch(set_doctor(response))
+      dispatch(set_doctor(response.data.new_doctor))
       dispatch(reset_state())
       setDoctorImage('')
       setEmail('')

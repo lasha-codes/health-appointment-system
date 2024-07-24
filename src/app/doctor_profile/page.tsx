@@ -41,7 +41,7 @@ const DoctorProfilePage = () => {
       <TopProfileSection profile={doctor_profile} />
       <button
         onClick={() => dispatch(toggle_delete_box({ bool: true }))}
-        className='bg-red-800 transition-all duration-300 ease-linear hover:bg-red-900 text-white px-5 py-2 rounded-lg'
+        className='bg-red-800 transition-all duration-300 ease-linear hover:bg-red-900 mt-5 text-white px-5 py-2 rounded-lg'
       >
         Delete account ?
       </button>
