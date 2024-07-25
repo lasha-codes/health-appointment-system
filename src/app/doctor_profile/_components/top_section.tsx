@@ -12,6 +12,7 @@ import {
   FaGithub,
 } from 'react-icons/fa'
 import Link from 'next/link'
+import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
 
 const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
   const [showSummary, setShowSummary] = useState<boolean>(false)
@@ -23,6 +24,8 @@ const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
   if (!profile) {
     return
   }
+
+  console.log('oops')
 
   return (
     <div className='flex flex-col items-start w-full'>
@@ -51,17 +54,19 @@ const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
             {profile.summary.length > 200 && !showSummary && (
               <span
                 onClick={() => setShowSummary(true)}
-                className='font-medium text-[#429b6a] hover:text-main_green transition-all duration-200 ease-linear cursor-pointer'
+                className='font-medium text-[#429b6a] hover:text-main_green transition-all duration-200 flex items-center gap-1 ease-linear cursor-pointer'
               >
                 Show more
+                <IoIosArrowDown />
               </span>
             )}
             {profile.summary.length > 200 && showSummary && (
               <span
                 onClick={() => setShowSummary(false)}
-                className='font-medium text-main_green hover:text-[#429b6a] transition-all duration-200 ease-linear cursor-pointer'
+                className='font-medium text-main_green hover:text-[#429b6a] transition-all duration-200 flex items-center gap-1 ease-linear cursor-pointer'
               >
                 Hide
+                <IoIosArrowUp />
               </span>
             )}
           </div>
