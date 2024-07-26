@@ -25,7 +25,7 @@ const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
     return
   }
 
-  console.log('oops')
+  console.log('cant today')
 
   return (
     <div className='flex flex-col items-start w-full'>
