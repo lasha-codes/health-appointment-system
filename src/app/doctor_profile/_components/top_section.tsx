@@ -4,6 +4,7 @@ import { Doctor } from '@prisma/client'
 import Image from 'next/image'
 import { BsDot } from 'react-icons/bs'
 import { useState } from 'react'
+import ContactInfo from './contact_info'
 import {
   FaInstagram,
   FaFacebook,
@@ -13,9 +14,11 @@ import {
 } from 'react-icons/fa'
 import Link from 'next/link'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
+import { useSelector } from 'react-redux'
 
 const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
   const [showSummary, setShowSummary] = useState<boolean>(false)
+  const { doctor_profile } = useSelector((state: any) => state.doctor)
 
   const truncateTitle = (title: string) => {
     return !showSummary ? `${title.slice(0, 200)}..` : title
@@ -24,8 +27,6 @@ const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
   if (!profile) {
     return
   }
-
-  console.log('cant today')
 
   return (
     <div className='flex flex-col items-start w-full'>
@@ -123,21 +124,29 @@ const TopProfileSection = ({ profile }: { profile: Doctor | null }) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col w-[400px] items-start border rounded-xl p-4 gap-4'>
-          <h4 className='font-medium'>Medical Actions</h4>
-          <div className='flex flex-col items-start gap-1.5'>
-            {profile?.services.map((service: any, idx: number) => {
-              return (
-                <div key={idx} className='flex items-center gap-1'>
-                  <BsDot />
-                  <span className='text-sm text-zinc-500'>{service.title}</span>
-                </div>
-              )
-            })}
+        <div className='w-[450px] flex flex-col items-start gap-3'>
+          <div className='flex flex-col w-full items-start border rounded-xl p-4 gap-4'>
+            <h4 className='font-medium'>Medical Actions</h4>
+            <div className='flex flex-col items-start gap-1.5'>
+              {profile?.services.map((service: any, idx: number) => {
+                return (
+                  <div key={idx} className='flex items-center gap-1'>
+                    <BsDot />
+                    <span className='text-sm text-zinc-500'>
+                      {service.title}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+            <button className='bg-[#429b6a] text-white transition-all duration-300 ease-linear hover:bg-main_green w-full py-2 rounded-lg'>
+              Make Appointments
+            </button>
           </div>
-          <button className='bg-[#429b6a] text-white transition-all duration-300 ease-linear hover:bg-main_green w-full py-2 rounded-lg'>
-            Make Appointments
-          </button>
+          <ContactInfo
+            phone_number={doctor_profile?.phonenumber}
+            email={doctor_profile?.email}
+          />
         </div>
       </div>
     </div>
