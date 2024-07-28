@@ -13,6 +13,7 @@ const ContactInfo = ({
     <div className='flex flex-col items-start gap-3 p-5 rounded-xl bg-white shadow-md'>
       <Link
         href={`https://wa.me/${phone_number}`}
+        target='_blank'
         className='flex items-center gap-3 text-[15px]'
       >
         <FaWhatsapp className='text-[#3BD876] text-lg' />
