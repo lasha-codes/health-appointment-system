@@ -9,8 +9,8 @@ const ContactInfo = ({
   phone_number: string
   email: string
 }) => {
-  console.log('im tired')
-  console.log('im tired')
+  console.log('i cant rn')
+
   return (
     <div className='flex flex-col items-start gap-3 p-5 rounded-xl bg-white shadow-md'>
       <Link
