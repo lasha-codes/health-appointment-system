@@ -9,7 +9,7 @@ const ContactInfo = ({
   phone_number: string
   email: string
 }) => {
-  console.log('somebody hire me please')
+  console.log('going out rn so cant study no time')
   return (
     <div className='flex flex-col items-start gap-3 p-5 rounded-xl bg-white shadow-md'>
       <Link
